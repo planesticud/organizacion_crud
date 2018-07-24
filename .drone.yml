@@ -42,15 +42,17 @@ pipeline:
       branch: [master, develop, concept]
       event: push
       
-  deploy_concept:
-    ssh:
-      host: ${local_test_server}
-      port: ${local_test_port}
-      user: ${local_test_user}
-      commands:
-        - docker stop ${DRONE_REPO##udistrital/}
-        - docker rm ${DRONE_REPO##udistrital/}
-        - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
+  ssh:
+    host: ${local_test_server}
+    port: ${local_test_port}
+    user: ${local_test_user}
+    commands:
+      - docker stop ${DRONE_REPO##udistrital/}
+      - docker rm ${DRONE_REPO##udistrital/}
+      - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
+    when:
+      branch: [concept]
+      event: push
       
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
