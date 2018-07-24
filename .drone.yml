@@ -49,8 +49,8 @@ pipeline:
         port: local_test_port
         user: local_test_user
     commands:
-      - docker stop ${DRONE_REPO##udistrital/}
-      - docker rm ${DRONE_REPO##udistrital/}
+      - docker stop ${DRONE_REPO##udistrital/} || true
+      - docker rm ${DRONE_REPO##udistrital/} || true
       - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
     when:
       branch: [concept]
