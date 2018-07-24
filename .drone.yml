@@ -51,7 +51,7 @@ pipeline:
 #      - host: local_test_server
 #        port: local_test_port
 #        user: local_test_user
-    commands:
+    script:
       - touch /home/drone-ci/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}
 #      - docker stop ${DRONE_REPO##udistrital/} || true
 #      - docker rm ${DRONE_REPO##udistrital/} || true
