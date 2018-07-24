@@ -39,15 +39,18 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-      branch: [master, develop, concept]
+      branch: [master, develop]
       event: push
       
   deploy_concept:
     image: appleboy/drone-ssh
-    secrets:
-      - host: local_test_server
-        port: local_test_port
-        user: local_test_user
+    host: 10.20.0.254
+    port: 37511
+    user: drone-ci
+#    secrets:
+#      - host: local_test_server
+#        port: local_test_port
+#        user: local_test_user
     commands:
       - touch /home/drone-ci/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}
 #      - docker stop ${DRONE_REPO##udistrital/} || true
