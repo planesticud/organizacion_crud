@@ -43,6 +43,7 @@ pipeline:
       event: push
       
   ssh:
+    image: appleboy/drone-ssh
     host: ${local_test_server}
     port: ${local_test_port}
     user: ${local_test_user}
