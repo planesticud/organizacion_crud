@@ -47,11 +47,8 @@ pipeline:
     host: ${local_test_server}
     port: ${local_test_port}
     secrets: [ssh_username, ssh_key]
-#      - host: [local_test_server]
-#      - port: [local_test_port]
-#      - username: [ssh_username]
-#      - key: [ssh_key]
     script:
+      - touch ~/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}.txt
       - docker stop ${DRONE_REPO##udistrital/} || true
       - docker rm ${DRONE_REPO##udistrital/} || true
       - docker pull oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
