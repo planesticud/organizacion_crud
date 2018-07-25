@@ -44,13 +44,16 @@ pipeline:
       
   deploy_concept:
     image: appleboy/drone-ssh
-#    secrets:
-#      - host: local_test_server
-#        port: local_test_port
-#        user: local_test_user
+    secrets:
+      - host: local_test_server
+        port: local_test_port
+        user: local_test_user
+        ssh_key: remote_ssh_key
     script:
-      - chmod 600 .drone/private_deploy_key
-      - ssh -p ${local_test_port} -i .drone/private_deploy_key ${local_test_user}@${local_test_server} 'bash -s' < ./.drone/deploy.sh
+      - docker stop ${DRONE_REPO##udistrital/} || true
+      - docker rm ${DRONE_REPO##udistrital/} || true
+      - docker pull oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
+      - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
     when:
       branch: [concept]
       event: push
