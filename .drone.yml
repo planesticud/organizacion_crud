@@ -47,7 +47,7 @@ pipeline:
     secrets:
       - host: [local_test_server]
       - port: [local_test_port]
-      - user: [local_test_user]
+      - username: [local_test_user]
       - key: [remote_ssh_key]
     script:
       - docker stop ${DRONE_REPO##udistrital/} || true
