@@ -45,10 +45,10 @@ pipeline:
   deploy_concept:
     image: appleboy/drone-ssh
     secrets:
-      - host: local_test_server
-        port: local_test_port
-        user: local_test_user
-        ssh_key: remote_ssh_key
+      - host: [local_test_server]
+      - port: [local_test_port]
+      - user: [local_test_user]
+      - ssh_key: [remote_ssh_key]
     script:
       - docker stop ${DRONE_REPO##udistrital/} || true
       - docker rm ${DRONE_REPO##udistrital/} || true
