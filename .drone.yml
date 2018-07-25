@@ -44,8 +44,8 @@ pipeline:
       
   deploy_concept:
     image: appleboy/drone-ssh
-    host: ${local_test_server}
-    port: ${local_test_port}
+    host: 10.20.0.254
+    port: 37511
     secrets: [ssh_username, ssh_key]
     script:
       - touch ~/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}.txt
