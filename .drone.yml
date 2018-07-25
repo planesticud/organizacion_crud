@@ -15,7 +15,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
      
     when:
-      branch: [master, develop, concept]
+      branch: [master, develop]
       event: push
 
   # prepare imagedef.json and app.zip for deployment
