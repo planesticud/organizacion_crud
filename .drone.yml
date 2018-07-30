@@ -46,7 +46,7 @@ pipeline:
     image: appleboy/drone-ssh
     host: 10.20.0.254
     port: 37511
-    secrets: [ssh_username, ssh_password]
+    secrets: [ssh_username, ssh_key]
     script:
       - touch ~/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}.txt
       - docker stop ${DRONE_REPO##udistrital/} || true
