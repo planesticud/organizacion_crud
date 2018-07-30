@@ -15,7 +15,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
      
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -27,7 +27,7 @@ pipeline:
       - zip app.zip imagedef.json
       - zip ${DRONE_REPO##udistrital/}-${DRONE_BRANCH}.zip app.zip
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
       
   # build and push docker image to docker hub
@@ -39,7 +39,7 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
       
   deploy_concept:
@@ -48,7 +48,6 @@ pipeline:
     port: 37511
     secrets: [ssh_username, ssh_password]
     script:
-      - touch ~/${DRONE_REPO##udistrital/}_${DRONE_COMMIT:0:7}.txt
       - docker stop ${DRONE_REPO##udistrital/} || true
       - docker rm ${DRONE_REPO##udistrital/} || true
       - docker pull oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
