@@ -46,12 +46,12 @@ pipeline:
     image: appleboy/drone-ssh
     host: 10.20.0.254
     port: 37511
-    secrets: [ssh_username, ssh_password]
+    secrets: [ssh_username, ssh_key]
     script:
       - docker stop ${DRONE_REPO##udistrital/} || true
       - docker rm ${DRONE_REPO##udistrital/} || true
       - docker pull oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
-      - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
+      - docker run -d --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
     when:
       branch: [concept]
       event: push
