@@ -39,7 +39,7 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
       
   deploy_concept:
